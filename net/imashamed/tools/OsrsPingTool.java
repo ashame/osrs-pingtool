@@ -59,7 +59,7 @@ public class OsrsPingTool {
 
         int lowest = 999;
 
-        System.out.println("Lowest ping world(s):");
+        System.out.println("\r\n\r\nLowest ping world(s):");
 
         for (Map.Entry<Integer, Integer> i : pingMap.entrySet()) {
             if (i.getValue() < lowest)
@@ -73,7 +73,7 @@ public class OsrsPingTool {
 
         System.out.println("\r\n\r\nAll worlds:");
         for (Map.Entry<Integer, Integer> i : pingMap.entrySet()) {
-            System.out.printf("%d (%dms) \t\t", i.getKey(), i.getValue());
+            System.out.printf("%d (%dms)%s", i.getKey(), i.getValue(), (i.getKey() % 13 == 0) ? "\r\n" : "\t\t");
         }
 
         if (!GraphicsEnvironment.isHeadless()) {
@@ -89,7 +89,13 @@ public class OsrsPingTool {
                 s += String.format("%d (%dms)%s", i.getKey(), i.getValue(), (i.getKey() % 7 == 0) ? "\r\n" : "\t\t");
             }
 
-            JOptionPane.showMessageDialog(null, new JTextArea(s));
+            s += "\r\n\r\n";
+
+            JTextArea textArea = new JTextArea(s);
+            textArea.setFocusable(false);
+            textArea.setBackground(new Color(238, 238, 238));
+
+            JOptionPane.showMessageDialog(null, textArea);
         }
         System.exit(0);
     }
